@@ -42,17 +42,6 @@ body {
   width: 100%;
   font-weight: bold;
   text-transform: uppercase;
-
-  &::before {
-    display: inline-block;
-    position: absolute;
-    bottom: -8px;
-    left: 0px;
-    box-shadow: -2px 0 0 var(--color-0), 2px 0 0 var(--color-0);
-    width: 100%;
-    height: 8px;
-    content: "";
-  }
 }
 
 .screen nav > span {
@@ -66,34 +55,6 @@ body {
   z-index: 1;
   box-shadow: 0 2px 0 var(--color-bg);
   color: var(--color-0);
-
-  &::before {
-    display: inline-block;
-    position: absolute;
-    top: calc(50% + 2px);
-    left: 0px;
-    z-index: -1;
-    border-top: 2px solid var(--color-0);
-    border-left: 2px solid var(--color-0);
-    background: var(--color-bg);
-    width: 12px;
-    height: 12px;
-    content: "";
-  }
-
-  &::after {
-    display: inline-block;
-    position: absolute;
-    top: calc(50% + 2px);
-    right: 0px;
-    z-index: -1;
-    border-top: 2px solid var(--color-0);
-    border-right: 2px solid var(--color-0);
-    background: var(--color-bg);
-    width: 12px;
-    height: 12px;
-    content: "";
-  }
 }
 
 .screen .station-list {
@@ -103,36 +64,22 @@ body {
   width: 360px;
   font-size: 18px;
   list-style: none;
+}
 
-  & li {
-    cursor: pointer;
-    padding: 2px 24px;
-  }
+.screen .station-list li {
+  cursor: pointer;
+  padding: 2px 24px;
+}
 
-  & li.active {
-    position: relative;
+.screen .station-list li.active,
+.screen .station-list li:hover {
+  background-color: var(--color-0);
+  color: var(--color-bg);
+}
 
-    &::before {
-      position: absolute;
-      top: calc(50% - 4px);
-      left: 8px;
-      background: var(--color-bg);
-      width: 8px;
-      height: 8px;
-      content: "";
-    }
-  }
-
-  & li.active,
-  & li:hover {
-    background-color: var(--color-0);
-    color: var(--color-bg);
-  }
-
-  & li[aria-disabled] {
-    pointer-events: none;
-    color: var(--color-200);
-  }
+.screen .station-list li[aria-disabled] {
+  pointer-events: none;
+  color: var(--color-200);
 }
 
 .screen #wave-canvas {
@@ -156,4 +103,63 @@ body {
 
 audio {
   display: none;
+}
+
+/* ===== Volume Slider ===== */
+.screen .volume-control {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Consolas, monospace;
+  color: var(--color-0);
+  font-size: 16px;
+}
+
+.screen .volume-control input[type=range] {
+  -webkit-appearance: none;
+  width: 150px;
+  height: 6px;
+  background: var(--color-300);
+  border: 1px solid var(--color-0);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.screen .volume-control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--color-0);
+  border-radius: 50%;
+  border: 1px solid var(--color-0);
+  box-shadow: 0 0 4px var(--color-0);
+  cursor: pointer;
+}
+
+.screen .volume-control input[type=range]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--color-0);
+  border-radius: 50%;
+  border: 1px solid var(--color-0);
+  box-shadow: 0 0 4px var(--color-0);
+  cursor: pointer;
+}
+
+.screen .volume-control button {
+  background: var(--color-bg);
+  color: var(--color-0);
+  border: 1px solid var(--color-0);
+  border-radius: 3px;
+  padding: 2px 6px;
+  cursor: pointer;
+  box-shadow: 0 0 4px var(--color-0);
+}
+
+.screen .volume-control button:hover {
+  background: var(--color-300);
 }
