@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="ui.css" />
     <title>Pip-Boy</title>
   </head>
@@ -34,10 +34,7 @@
       </div>
     </div>
 
-    <!-- Rotate device overlay -->
-    <div class="rotate-overlay">
-      <p>Please rotate your device to landscape</p>
-    </div>
+    <div class="rotate-overlay">Please rotate your device to landscape to use Pip-Boy</div>
 
     <script>
       const stations = [
@@ -133,7 +130,7 @@
         requestAnimationFrame(drawWaveform);
       });
 
-      // ===== Volume Slider & Mute =====
+      // Volume slider & mute
       const slider = document.getElementById("volumeSlider");
       const muteBtn = document.getElementById("muteBtn");
 
@@ -155,17 +152,18 @@
         muteBtn.textContent = player.muted ? "Unmute" : "Mute";
       });
 
-      // ===== Rotate overlay logic =====
-      const overlay = document.querySelector('.rotate-overlay');
+      // Show rotate overlay if mobile portrait
       function checkOrientation() {
-        if(window.innerHeight > window.innerWidth) {
-          overlay.style.display = 'flex';
+        const overlay = document.querySelector(".rotate-overlay");
+        if (window.innerWidth < 768 && window.innerWidth < window.innerHeight) {
+          overlay.style.display = "flex";
         } else {
-          overlay.style.display = 'none';
+          overlay.style.display = "none";
         }
       }
-      window.addEventListener('resize', checkOrientation);
-      window.addEventListener('load', checkOrientation);
+
+      window.addEventListener("resize", checkOrientation);
+      window.addEventListener("load", checkOrientation);
     </script>
   </body>
 </html>
