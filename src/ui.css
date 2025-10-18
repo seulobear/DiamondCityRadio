@@ -5,7 +5,7 @@
 
 html,
 body {
-  background: rgb(170, 170, 170);
+  background: rgb(0, 0, 0);
   width: 100lvw;
   height: 100lvh;
   overflow: hidden;
@@ -150,10 +150,11 @@ body {
 
 .screen footer {
   position: absolute;
-  bottom: 32px;
-  background: var(--color-300);
-  width: calc(100% - 64px);
+  bottom: 0;           /* stick to bottom */
+  left: 0;             /* start at left edge */
+  width: 100%;         /* full width of .screen */
   height: 32px;
+  background: var(--color-300);
 }
 
 audio {
