@@ -1,3 +1,4 @@
+/* ===== Reset & Basic Styling ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,12 +8,12 @@
 html, body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  background: black; /* black behind Pip-Boy */
   font-family: Consolas, monospace;
-  background: black; /* Black behind Pip-Boy */
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .screen-wrapper {
@@ -24,7 +25,7 @@ html, body {
 }
 
 .screen {
-  --color-0: #00ff00;
+  --color-0: #00ff00;   /* bright Pip-Boy green */
   --color-100: #00bb00;
   --color-200: #008800;
   --color-300: #005500;
@@ -43,6 +44,7 @@ html, body {
   font-size: calc(14px + 1vw);
 }
 
+/* ===== Nav ===== */
 .screen nav {
   display: flex;
   justify-content: space-between;
@@ -60,23 +62,21 @@ html, body {
   color: var(--color-0);
 }
 
+/* ===== Station List ===== */
 .screen .station-list {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1 1 auto;
   list-style: none;
   font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: hidden; /* hide scrollbar */
 }
 
 .screen .station-list li {
   cursor: pointer;
-  padding: 0.5em;
-}
-
-/* Hover & active effect only for selectable stations */
-.screen .station-list li.active,
-.screen .station-list li:hover:not([aria-disabled]) {
-  background-color: var(--color-0);
-  color: var(--color-bg);
+  padding: 0.5em 1em;
+  color: var(--color-0);
 }
 
 .screen .station-list li[aria-disabled] {
@@ -84,32 +84,40 @@ html, body {
   color: var(--color-200);
 }
 
+.screen .station-list li.active,
+.screen .station-list li:hover:not([aria-disabled]) {
+  background-color: var(--color-0);
+  color: var(--color-bg);
+}
+
+/* ===== Waveform ===== */
 .screen #wave-canvas {
-  width: 100%;
-  max-width: 200px;
-  aspect-ratio: 1;
-  align-self: flex-end;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 2%;
+  right: 2%;
   border-right: 2px solid var(--color-300);
   border-bottom: 2px solid var(--color-300);
   image-rendering: pixelated;
-  margin-top: 1em;
 }
 
+/* ===== Footer ===== */
 .screen footer {
-  height: 5%;
+  height: 32px;
   background: var(--color-300);
-  margin-top: 1%;
   width: 100%;
   flex-shrink: 0;
+  margin-top: auto;
 }
 
-/* Move volume slider above footer */
+/* ===== Volume Control ===== */
 .screen .volume-control {
   display: flex;
   align-items: center;
   gap: 0.5em;
   justify-content: center;
-  margin-bottom: 8%; /* push above footer */
+  margin-bottom: 6%; /* sit above footer */
 }
 
 .screen .volume-control input[type=range] {
@@ -125,7 +133,7 @@ html, body {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
-  background: var(--color-0); /* Bright green */
+  background: var(--color-0);
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -134,7 +142,7 @@ html, body {
 .screen .volume-control input[type=range]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background: var(--color-0); /* Bright green */
+  background: var(--color-0);
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -154,40 +162,7 @@ html, body {
   background: var(--color-300);
 }
 
-/* Hide default audio controls */
-audio {
-  display: none !important;
-}
-
-/* Rotate device overlay */
+/* ===== Remove rotate overlay entirely since we don't force landscape */
 .rotate-overlay {
   display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  color: var(--color-0);
-  font-family: Consolas, monospace;
-  font-size: 2em;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  z-index: 9999;
-}
-
-/* Mobile Landscape Only */
-@media (max-width: 768px) {
-  .screen-wrapper {
-    transform-origin: center;
-    transform: rotate(-90deg);
-    width: 100vh;
-    height: 100vw;
-  }
-
-  /* Add extra margin above footer to avoid overlap */
-  .screen .volume-control {
-    margin-bottom: 10%;
-  }
 }
