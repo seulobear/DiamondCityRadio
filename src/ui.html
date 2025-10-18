@@ -18,6 +18,14 @@
       <ul class="station-list"></ul>
       <canvas id="wave-canvas" width="128" height="64"></canvas>
       <audio controls></audio>
+
+      <!-- Volume slider & mute -->
+      <div class="volume-control">
+        <label for="volumeSlider">Volume</label>
+        <input type="range" id="volumeSlider" min="0" max="100" value="100">
+        <button id="muteBtn">Mute</button>
+      </div>
+
       <footer></footer>
     </div>
 
@@ -114,6 +122,28 @@
       player.addEventListener("play", () => {
         audioContext.resume();
         requestAnimationFrame(drawWaveform);
+      });
+
+      // ===== Volume Slider & Mute =====
+      const slider = document.getElementById("volumeSlider");
+      const muteBtn = document.getElementById("muteBtn");
+
+      const savedVolume = localStorage.getItem("volume");
+      if (savedVolume) {
+        slider.value = savedVolume;
+        player.volume = savedVolume / 100;
+      } else {
+        player.volume = slider.value / 100;
+      }
+
+      slider.addEventListener("input", () => {
+        player.volume = slider.value / 100;
+        localStorage.setItem("volume", slider.value);
+      });
+
+      muteBtn.addEventListener("click", () => {
+        player.muted = !player.muted;
+        muteBtn.textContent = player.muted ? "Unmute" : "Mute";
       });
     </script>
   </body>
