@@ -24,7 +24,7 @@ html, body {
 
   width: 100%;
   max-width: 960px;
-  height: 80vh; /* Make UI taller */
+  height: 85vh; /* Taller for better proportions */
   background: var(--color-bg);
   color: var(--color-0);
   display: flex;
@@ -36,7 +36,7 @@ html, body {
 
 .screen nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; /* Proper spacing for STAT INV DATA MAP RADIO */
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 1%;
@@ -53,14 +53,15 @@ html, body {
 
 .radio-content {
   display: flex;
-  gap: 2%;
   flex: 1;
+  gap: 2%;
 }
 
 .screen .station-list {
-  flex: 0.7; /* Reduce width so visualizer fits nicely */
+  flex: 0.65; /* Slightly smaller width for list */
   list-style: none;
   font-size: 1em;
+  overflow: hidden;
 }
 
 .screen .station-list li {
@@ -79,17 +80,19 @@ html, body {
 }
 
 .screen #wave-canvas {
-  width: 200px;
-  height: 200px; /* Make square */
+  width: 220px; /* larger visualizer */
+  height: 220px; /* square */
   border-right: 2px solid var(--color-300);
   border-bottom: 2px solid var(--color-300);
   image-rendering: pixelated;
+  align-self: flex-end; /* aligned to right of station list */
 }
 
 .screen footer {
-  height: 5%;
+  height: 6%; /* slightly taller green bar */
   background: var(--color-300);
   margin-top: 1%;
+  width: 100%;
 }
 
 .screen .volume-control {
@@ -113,7 +116,7 @@ html, body {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
-  background: var(--color-0);
+  background: var(--color-0); /* bright green */
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -122,7 +125,7 @@ html, body {
 .screen .volume-control input[type=range]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background: var(--color-0);
+  background: var(--color-0); /* bright green */
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
