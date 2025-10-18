@@ -9,7 +9,7 @@ html, body {
   height: 100vh;
   overflow: hidden;
   font-family: Consolas, monospace;
-  background: black; /* Black behind Pip-Boy */
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,9 +62,8 @@ html, body {
 
 .screen .station-list {
   flex: 1;
-  overflow-y: auto;
   list-style: none;
-  font-size: 1em;
+  overflow: hidden; /* prevent scrollbars */
 }
 
 .screen .station-list li {
@@ -119,7 +118,7 @@ html, body {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
-  background: var(--color-0); /* Bright green */
+  background: var(--color-0);
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -128,7 +127,7 @@ html, body {
 .screen .volume-control input[type=range]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background: var(--color-0); /* Bright green */
+  background: var(--color-0);
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -164,6 +163,7 @@ html, body {
   align-items: center;
   text-align: center;
   z-index: 9999;
+  display: flex;
 }
 
 /* Mobile Landscape Only */
@@ -175,7 +175,7 @@ html, body {
     height: 100vw;
   }
 
-  /* Add extra margin above footer to avoid overlap */
+  /* Extra margin for volume slider above footer */
   .screen .volume-control {
     margin-bottom: 10%;
   }
