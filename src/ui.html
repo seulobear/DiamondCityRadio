@@ -2,34 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="ui.css" />
     <title>Pip-Boy</title>
   </head>
   <body>
-    <div class="screen">
-      <nav>
-        <span>Stat</span>
-        <span>Inv</span>
-        <span>Data</span>
-        <span>Map</span>
-        <span class="active">Radio</span>
-      </nav>
+    <div class="screen-wrapper">
+      <div class="screen">
+        <nav>
+          <span>Stat</span>
+          <span>Inv</span>
+          <span>Data</span>
+          <span>Map</span>
+          <span class="active">Radio</span>
+        </nav>
 
-      <ul class="station-list"></ul>
+        <ul class="station-list"></ul>
 
-      <canvas id="wave-canvas" width="128" height="64"></canvas>
+        <canvas id="wave-canvas" width="128" height="64"></canvas>
 
-      <audio controls></audio>
+        <audio controls></audio>
 
-      <!-- Volume slider & mute -->
-      <div class="volume-control">
-        <label for="volumeSlider">Volume</label>
-        <input type="range" id="volumeSlider" min="0" max="100" value="100">
-        <button id="muteBtn">Mute</button>
+        <!-- Volume slider & mute -->
+        <div class="volume-control">
+          <label for="volumeSlider">Volume</label>
+          <input type="range" id="volumeSlider" min="0" max="100" value="100">
+          <button id="muteBtn">Mute</button>
+        </div>
+
+        <footer></footer>
       </div>
+    </div>
 
-      <footer></footer>
+    <!-- Rotate device overlay -->
+    <div class="rotate-overlay">
+      <p>Please rotate your device to landscape</p>
     </div>
 
     <script>
@@ -147,6 +154,18 @@
         player.muted = !player.muted;
         muteBtn.textContent = player.muted ? "Unmute" : "Mute";
       });
+
+      // ===== Rotate overlay logic =====
+      const overlay = document.querySelector('.rotate-overlay');
+      function checkOrientation() {
+        if(window.innerHeight > window.innerWidth) {
+          overlay.style.display = 'flex';
+        } else {
+          overlay.style.display = 'none';
+        }
+      }
+      window.addEventListener('resize', checkOrientation);
+      window.addEventListener('load', checkOrientation);
     </script>
   </body>
 </html>
