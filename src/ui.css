@@ -3,73 +3,78 @@
   margin: 0;
 }
 
-html,
-body {
-  background: rgb(170, 170, 170);
+html, body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  font-family: Consolas, monospace;
+  background: rgb(170, 170, 170);
+  font-family: "Consolas", "Courier New", monospace;
   user-select: none;
+  overflow: hidden;
 }
 
-.screen {
+:root {
   --color-0: #00ff00;
   --color-100: #00bb00;
   --color-200: #008800;
   --color-300: #005500;
   --color-bg: #212121;
 
+  --screen-padding: 2vw;
+  --nav-padding: 1vw;
+  --station-list-width: 25%;
+  --canvas-size: 30%;
+  --footer-height: 5%;
+  --font-size: 1.5vw;
+}
+
+.screen {
   display: flex;
-  position: relative;
+  flex-direction: column;
+  position: absolute;
   top: 50%;
   left: 50%;
-  flex-direction: column;
   transform: translate(-50%, -50%);
   background: var(--color-bg);
-  padding: 4vw;           /* scales with screen */
-  width: 90vw;
-  max-width: 640px;
-  aspect-ratio: 4 / 3;
   color: var(--color-0);
-  font-size: 2vw;         /* scales text */
+  padding: var(--screen-padding);
+  width: 90vw;
+  max-width: 1000px;
+  height: 70vh;
+  max-height: 700px;
+  font-size: var(--font-size);
+  image-rendering: pixelated;
 }
 
 .screen nav {
   display: flex;
   justify-content: space-between;
-  position: relative;
-  box-shadow: 0 0.2vw 0 var(--color-0);
-  padding: 0 8%;
   font-weight: bold;
   text-transform: uppercase;
+  padding: 0 var(--nav-padding);
+  box-shadow: 0 0.5vh 0 var(--color-0);
 }
 
 .screen nav > span {
-  padding: 0 1vw;
+  padding: 0 0.5vw;
   color: var(--color-200);
   text-align: center;
 }
 
 .screen nav .active {
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 0.2vw 0 var(--color-bg);
   color: var(--color-0);
+  box-shadow: 0 0.5vh 0 var(--color-bg);
 }
 
 .screen .station-list {
-  position: absolute;
-  top: 25%;
-  left: 2%;
-  width: 35%;
-  font-size: 1em; /* relative to .screen font-size */
   list-style: none;
+  margin-top: 2vh;
+  width: var(--station-list-width);
+  font-size: 0.9em;
 }
 
 .screen .station-list li {
   cursor: pointer;
-  padding: 0.2em 1em;
+  padding: 0.5vh 0.5vw;
 }
 
 .screen .station-list li.active,
@@ -83,129 +88,104 @@ body {
   color: var(--color-200);
 }
 
+/* Waveform canvas */
 .screen #wave-canvas {
   position: absolute;
   top: 10%;
-  right: 2%;
-  width: 50%;
-  height: auto;
-  border-right: 0.3vw solid var(--color-300);
-  border-bottom: 0.3vw solid var(--color-300);
+  right: 5%;
+  border-right: 2px solid var(--color-300);
+  border-bottom: 2px solid var(--color-300);
+  width: var(--canvas-size);
+  height: var(--canvas-size);
   image-rendering: pixelated;
 }
 
+/* Footer */
 .screen footer {
   position: absolute;
-  bottom: 2%;
+  bottom: var(--screen-padding);
+  left: var(--screen-padding);
+  right: var(--screen-padding);
+  height: var(--footer-height);
   background: var(--color-300);
-  width: 96%;
-  height: 6%;
 }
 
+/* Audio hidden */
 audio {
   display: none;
 }
 
-/* ===== Volume Slider ===== */
+/* Volume slider */
 .screen .volume-control {
   position: absolute;
-  bottom: 10%;
+  bottom: calc(var(--footer-height) + 2vh);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 1vw;
-  font-family: Consolas, monospace;
+  font-family: "Consolas", monospace;
   color: var(--color-0);
-  font-size: 1em; /* relative to .screen font-size */
+  font-size: 0.9em;
 }
 
 .screen .volume-control input[type=range] {
   -webkit-appearance: none;
-  width: 40%;          /* scales with container */
-  height: 0.6em;
+  width: 15vw;
+  height: 1vh;
   background: var(--color-300);
-  border: 0.1em solid var(--color-0);
-  border-radius: 0.3em;
+  border: 1px solid var(--color-0);
+  border-radius: 3px;
   cursor: pointer;
+  image-rendering: pixelated;
 }
 
-.screen .volume-control input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 1.4em;
-  height: 1.4em;
-  background: var(--color-0);
-  border-radius: 50%;
-  border: 0.1em solid var(--color-0);
-  box-shadow: 0 0 0.4em var(--color-0);
-  cursor: pointer;
-}
-
+.screen .volume-control input[type=range]::-webkit-slider-thumb,
 .screen .volume-control input[type=range]::-moz-range-thumb {
-  width: 1.4em;
-  height: 1.4em;
+  width: 1.5vh;
+  height: 1.5vh;
   background: var(--color-0);
   border-radius: 50%;
-  border: 0.1em solid var(--color-0);
-  box-shadow: 0 0 0.4em var(--color-0);
+  border: 1px solid var(--color-0);
+  box-shadow: 0 0 4px var(--color-0);
   cursor: pointer;
 }
 
 .screen .volume-control button {
   background: var(--color-bg);
   color: var(--color-0);
-  border: 0.1em solid var(--color-0);
-  border-radius: 0.3em;
-  padding: 0.2em 0.6em;
+  border: 1px solid var(--color-0);
+  border-radius: 3px;
+  padding: 0.5vh 1vw;
   cursor: pointer;
-  box-shadow: 0 0 0.4em var(--color-0);
+  box-shadow: 0 0 4px var(--color-0);
+  image-rendering: pixelated;
 }
 
 .screen .volume-control button:hover {
   background: var(--color-300);
 }
 
-/* ===== Mobile scaling ===== */
-@media (max-width: 768px) {
-  .screen {
-    width: 95vw;
-    height: auto;
-    padding: 2vw;
-    font-size: 3vw;
-  }
+/* ===== Responsive scaling ===== */
 
-  .screen nav {
-    flex-wrap: wrap;
-    padding: 0 4vw;
-  }
-
-  .screen .station-list {
-    width: 90%;
-    top: 20%;
-    left: 5%;
-  }
-
-  .screen #wave-canvas {
-    width: 90%;
-    top: 50%;
-    right: 5%;
-  }
-
-  .screen footer {
-    width: 90%;
-    height: 5%;
-    bottom: 2%;
-  }
-
-  .screen .volume-control {
-    width: 90%;
-    bottom: 40%;
-    left: 5%;
-    transform: none;
-  }
-
-  .screen .volume-control input[type=range] {
-    width: 70%;
+/* Mobile portrait */
+@media (max-width: 600px) and (orientation: portrait) {
+  :root {
+    --screen-padding: 3vw;
+    --station-list-width: 90%;
+    --canvas-size: 70%;
+    --footer-height: 6%;
+    --font-size: 3vw;
   }
 }
 
+/* Mobile landscape */
+@media (max-width: 600px) and (orientation: landscape) {
+  :root {
+    --screen-padding: 2vw;
+    --station-list-width: 35%;
+    --canvas-size: 55%;
+    --footer-height: 6%;
+    --font-size: 2.5vw;
+  }
+}
