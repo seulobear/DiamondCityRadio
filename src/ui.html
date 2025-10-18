@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="ui.css" />
     <title>Pip-Boy</title>
   </head>
@@ -24,7 +24,7 @@
 
       <!-- Volume slider & mute -->
       <div class="volume-control">
-        <label for="volumeSlider">Vol</label>
+        <label for="volumeSlider">Volume</label>
         <input type="range" id="volumeSlider" min="0" max="100" value="100">
         <button id="muteBtn">Mute</button>
       </div>
@@ -46,8 +46,11 @@
       for (const [title, address] of stations) {
         const el = document.createElement("li");
         el.innerText = title;
-        if (address !== null) el.setAttribute("data-station", address);
-        else el.setAttribute("aria-disabled", true);
+        if (address !== null) {
+          el.setAttribute("data-station", address);
+        } else {
+          el.setAttribute("aria-disabled", true);
+        }
         list.appendChild(el);
       }
 
@@ -75,9 +78,11 @@
         playUrl(target.getAttribute("data-station"));
       });
 
-      player.addEventListener("canplay", () => player.play());
+      player.addEventListener("canplay", () => {
+        player.play();
+      });
 
-      // ===== Waveform visualization =====
+      // Waveform visualization
       const canvas = document.getElementById("wave-canvas");
       const ctx = canvas.getContext("2d");
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -104,8 +109,11 @@
 
         for (let i = 0; i < bufferLength; i++) {
           let y = (dataArray[i] / 255) * canvas.height;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+          if (i === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
           x += sliceWidth;
         }
 
@@ -123,8 +131,12 @@
       const muteBtn = document.getElementById("muteBtn");
 
       const savedVolume = localStorage.getItem("volume");
-      player.volume = savedVolume ? savedVolume / 100 : slider.value / 100;
-      if (savedVolume) slider.value = savedVolume;
+      if (savedVolume) {
+        slider.value = savedVolume;
+        player.volume = savedVolume / 100;
+      } else {
+        player.volume = slider.value / 100;
+      }
 
       slider.addEventListener("input", () => {
         player.volume = slider.value / 100;
