@@ -9,7 +9,7 @@ html, body {
   height: 100vh;
   overflow: hidden;
   font-family: Consolas, monospace;
-  background: black;
+  background: black; /* Black behind Pip-Boy */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,8 +62,9 @@ html, body {
 
 .screen .station-list {
   flex: 1;
+  overflow-y: auto;
   list-style: none;
-  overflow: hidden; /* prevent scrollbars */
+  font-size: 1em;
 }
 
 .screen .station-list li {
@@ -71,10 +72,16 @@ html, body {
   padding: 0.5em;
 }
 
+/* Hover & active effect only for selectable stations */
 .screen .station-list li.active,
-.screen .station-list li:hover {
+.screen .station-list li:hover:not([aria-disabled]) {
   background-color: var(--color-0);
   color: var(--color-bg);
+}
+
+.screen .station-list li[aria-disabled] {
+  pointer-events: none;
+  color: var(--color-200);
 }
 
 .screen #wave-canvas {
@@ -118,7 +125,7 @@ html, body {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
-  background: var(--color-0);
+  background: var(--color-0); /* Bright green */
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -127,7 +134,7 @@ html, body {
 .screen .volume-control input[type=range]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background: var(--color-0);
+  background: var(--color-0); /* Bright green */
   border-radius: 50%;
   border: 1px solid var(--color-0);
   box-shadow: 0 0 4px var(--color-0);
@@ -147,6 +154,11 @@ html, body {
   background: var(--color-300);
 }
 
+/* Hide default audio controls */
+audio {
+  display: none !important;
+}
+
 /* Rotate device overlay */
 .rotate-overlay {
   display: none;
@@ -163,7 +175,6 @@ html, body {
   align-items: center;
   text-align: center;
   z-index: 9999;
-  display: flex;
 }
 
 /* Mobile Landscape Only */
@@ -175,7 +186,7 @@ html, body {
     height: 100vw;
   }
 
-  /* Extra margin for volume slider above footer */
+  /* Add extra margin above footer to avoid overlap */
   .screen .volume-control {
     margin-bottom: 10%;
   }
