@@ -1,13 +1,13 @@
 * {
   box-sizing: border-box;
-  margin: 0px;
+  margin: 0;
 }
 
 html,
 body {
   background: rgb(170, 170, 170);
-  width: 100lvw;
-  height: 100lvh;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   font-family: Consolas, monospace;
   user-select: none;
@@ -19,6 +19,7 @@ body {
   --color-200: #008800;
   --color-300: #005500;
   --color-bg: #212121;
+
   display: flex;
   position: relative;
   top: 50%;
@@ -26,26 +27,26 @@ body {
   flex-direction: column;
   transform: translate(-50%, -50%);
   background: var(--color-bg);
-  padding: 32px;
+  padding: 4vw;           /* scales with screen */
+  width: 90vw;
+  max-width: 640px;
   aspect-ratio: 4 / 3;
-  height: 480px;
   color: var(--color-0);
-  font-size: 24px;
+  font-size: 2vw;         /* scales text */
 }
 
 .screen nav {
   display: flex;
-  position: relative;
   justify-content: space-between;
-  box-shadow: 0 2px 0 var(--color-0);
-  padding: 0px 64px;
-  width: 100%;
+  position: relative;
+  box-shadow: 0 0.2vw 0 var(--color-0);
+  padding: 0 8%;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .screen nav > span {
-  padding: 0px 16px;
+  padding: 0 1vw;
   color: var(--color-200);
   text-align: center;
 }
@@ -53,22 +54,22 @@ body {
 .screen nav .active {
   position: relative;
   z-index: 1;
-  box-shadow: 0 2px 0 var(--color-bg);
+  box-shadow: 0 0.2vw 0 var(--color-bg);
   color: var(--color-0);
 }
 
 .screen .station-list {
   position: absolute;
-  top: 150px;
-  left: 0px;
-  width: 360px;
-  font-size: 18px;
+  top: 25%;
+  left: 2%;
+  width: 35%;
+  font-size: 1em; /* relative to .screen font-size */
   list-style: none;
 }
 
 .screen .station-list li {
   cursor: pointer;
-  padding: 2px 24px;
+  padding: 0.2em 1em;
 }
 
 .screen .station-list li.active,
@@ -84,21 +85,21 @@ body {
 
 .screen #wave-canvas {
   position: absolute;
-  top: 110px;
-  right: 40px;
-  border-right: 2px solid var(--color-300);
-  border-bottom: 2px solid var(--color-300);
+  top: 10%;
+  right: 2%;
+  width: 50%;
+  height: auto;
+  border-right: 0.3vw solid var(--color-300);
+  border-bottom: 0.3vw solid var(--color-300);
   image-rendering: pixelated;
-  width: 150px;
-  height: 150px;
 }
 
 .screen footer {
   position: absolute;
-  bottom: 32px;
+  bottom: 2%;
   background: var(--color-300);
-  width: calc(100% - 64px);
-  height: 32px;
+  width: 96%;
+  height: 6%;
 }
 
 audio {
@@ -108,58 +109,103 @@ audio {
 /* ===== Volume Slider ===== */
 .screen .volume-control {
   position: absolute;
-  bottom: 80px;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1vw;
   font-family: Consolas, monospace;
   color: var(--color-0);
-  font-size: 16px;
+  font-size: 1em; /* relative to .screen font-size */
 }
 
 .screen .volume-control input[type=range] {
   -webkit-appearance: none;
-  width: 150px;
-  height: 6px;
+  width: 40%;          /* scales with container */
+  height: 0.6em;
   background: var(--color-300);
-  border: 1px solid var(--color-0);
-  border-radius: 3px;
+  border: 0.1em solid var(--color-0);
+  border-radius: 0.3em;
   cursor: pointer;
 }
 
 .screen .volume-control input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 1.4em;
+  height: 1.4em;
   background: var(--color-0);
   border-radius: 50%;
-  border: 1px solid var(--color-0);
-  box-shadow: 0 0 4px var(--color-0);
+  border: 0.1em solid var(--color-0);
+  box-shadow: 0 0 0.4em var(--color-0);
   cursor: pointer;
 }
 
 .screen .volume-control input[type=range]::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: 1.4em;
+  height: 1.4em;
   background: var(--color-0);
   border-radius: 50%;
-  border: 1px solid var(--color-0);
-  box-shadow: 0 0 4px var(--color-0);
+  border: 0.1em solid var(--color-0);
+  box-shadow: 0 0 0.4em var(--color-0);
   cursor: pointer;
 }
 
 .screen .volume-control button {
   background: var(--color-bg);
   color: var(--color-0);
-  border: 1px solid var(--color-0);
-  border-radius: 3px;
-  padding: 2px 6px;
+  border: 0.1em solid var(--color-0);
+  border-radius: 0.3em;
+  padding: 0.2em 0.6em;
   cursor: pointer;
-  box-shadow: 0 0 4px var(--color-0);
+  box-shadow: 0 0 0.4em var(--color-0);
 }
 
 .screen .volume-control button:hover {
   background: var(--color-300);
 }
+
+/* ===== Mobile scaling ===== */
+@media (max-width: 768px) {
+  .screen {
+    width: 95vw;
+    height: auto;
+    padding: 2vw;
+    font-size: 3vw;
+  }
+
+  .screen nav {
+    flex-wrap: wrap;
+    padding: 0 4vw;
+  }
+
+  .screen .station-list {
+    width: 90%;
+    top: 20%;
+    left: 5%;
+  }
+
+  .screen #wave-canvas {
+    width: 90%;
+    top: 50%;
+    right: 5%;
+  }
+
+  .screen footer {
+    width: 90%;
+    height: 5%;
+    bottom: 2%;
+  }
+
+  .screen .volume-control {
+    width: 90%;
+    bottom: 40%;
+    left: 5%;
+    transform: none;
+  }
+
+  .screen .volume-control input[type=range] {
+    width: 70%;
+  }
+}
+
