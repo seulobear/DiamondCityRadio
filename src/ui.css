@@ -1,80 +1,75 @@
 * {
   box-sizing: border-box;
-  margin: 0;
+  margin: 0px;
 }
 
-html, body {
+html,
+body {
   width: 100vw;
   height: 100vh;
-  background: rgb(170, 170, 170);
-  font-family: "Consolas", "Courier New", monospace;
-  user-select: none;
   overflow: hidden;
+  font-family: Consolas, monospace;
+  user-select: none;
+  background: rgb(170, 170, 170);
 }
 
-:root {
+/* === Base Pip-Boy styles === */
+.screen {
   --color-0: #00ff00;
   --color-100: #00bb00;
   --color-200: #008800;
   --color-300: #005500;
   --color-bg: #212121;
-
-  --screen-padding: 2vw;
-  --nav-padding: 1vw;
-  --station-list-width: 25%;
-  --canvas-size: 30%;
-  --footer-height: 5%;
-  --font-size: 1.5vw;
-}
-
-.screen {
   display: flex;
-  flex-direction: column;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
+  flex-direction: column;
   transform: translate(-50%, -50%);
   background: var(--color-bg);
+  padding: 2%;
+  aspect-ratio: 4 / 3;
+  max-width: 95vw;
+  max-height: 95vh;
   color: var(--color-0);
-  padding: var(--screen-padding);
-  width: 90vw;
-  max-width: 1000px;
-  height: 70vh;
-  max-height: 700px;
-  font-size: var(--font-size);
-  image-rendering: pixelated;
+  font-size: 2.5vw;
 }
 
 .screen nav {
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 2px 0 var(--color-0);
+  padding: 0px 4%;
+  width: 100%;
   font-weight: bold;
   text-transform: uppercase;
-  padding: 0 var(--nav-padding);
-  box-shadow: 0 0.5vh 0 var(--color-0);
 }
 
 .screen nav > span {
-  padding: 0 0.5vw;
+  padding: 0px 16px;
   color: var(--color-200);
   text-align: center;
 }
 
 .screen nav .active {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 0 var(--color-bg);
   color: var(--color-0);
-  box-shadow: 0 0.5vh 0 var(--color-bg);
 }
 
 .screen .station-list {
+  position: absolute;
+  top: 15%;
+  left: 2%;
+  width: 40%;
+  font-size: 1.5vw;
   list-style: none;
-  margin-top: 2vh;
-  width: var(--station-list-width);
-  font-size: 0.9em;
 }
 
 .screen .station-list li {
   cursor: pointer;
-  padding: 0.5vh 0.5vw;
+  padding: 2px 24px;
 }
 
 .screen .station-list li.active,
@@ -88,62 +83,77 @@ html, body {
   color: var(--color-200);
 }
 
-/* Waveform canvas */
 .screen #wave-canvas {
   position: absolute;
-  top: 10%;
+  top: 15%;
   right: 5%;
   border-right: 2px solid var(--color-300);
   border-bottom: 2px solid var(--color-300);
-  width: var(--canvas-size);
-  height: var(--canvas-size);
   image-rendering: pixelated;
+  width: 35%;
+  height: 35%;
 }
 
-/* Footer */
 .screen footer {
   position: absolute;
-  bottom: var(--screen-padding);
-  left: var(--screen-padding);
-  right: var(--screen-padding);
-  height: var(--footer-height);
+  bottom: 4%;
   background: var(--color-300);
+  width: calc(100% - 4%);
+  height: 6%;
 }
 
-/* Audio hidden */
 audio {
   display: none;
 }
 
-/* Volume slider */
+/* ===== Volume Slider ===== */
 .screen .volume-control {
   position: absolute;
-  bottom: calc(var(--footer-height) + 2vh);
+  bottom: 8%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 1vw;
-  font-family: "Consolas", monospace;
+  gap: 2vw;
+  font-family: Consolas, monospace;
   color: var(--color-0);
-  font-size: 0.9em;
+  font-size: 1.5vw;
 }
 
 .screen .volume-control input[type=range] {
   -webkit-appearance: none;
-  width: 15vw;
-  height: 1vh;
+  width: 35%;
+  height: 6px;
   background: var(--color-300);
   border: 1px solid var(--color-0);
   border-radius: 3px;
   cursor: pointer;
-  image-rendering: pixelated;
 }
 
-.screen .volume-control input[type=range]::-webkit-slider-thumb,
+.screen .volume-control input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--color-0); /* Bright green */
+  border-radius: 50%;
+  border: 1px solid var(--color-0);
+  box-shadow: 0 0 4px var(--color-0);
+  cursor: pointer;
+}
+
 .screen .volume-control input[type=range]::-moz-range-thumb {
-  width: 1.5vh;
-  height: 1.5vh;
+  width: 14px;
+  height: 14px;
+  background: var(--color-0);
+  border-radius: 50%;
+  border: 1px solid var(--color-0);
+  box-shadow: 0 0 4px var(--color-0);
+  cursor: pointer;
+}
+
+.screen .volume-control input[type=range]::-ms-thumb {
+  width: 14px;
+  height: 14px;
   background: var(--color-0);
   border-radius: 50%;
   border: 1px solid var(--color-0);
@@ -156,36 +166,45 @@ audio {
   color: var(--color-0);
   border: 1px solid var(--color-0);
   border-radius: 3px;
-  padding: 0.5vh 1vw;
+  padding: 2px 6px;
   cursor: pointer;
   box-shadow: 0 0 4px var(--color-0);
-  image-rendering: pixelated;
 }
 
 .screen .volume-control button:hover {
   background: var(--color-300);
 }
 
-/* ===== Responsive scaling ===== */
+/* === Mobile portrait warning === */
+@media (max-width: 768px) and (orientation: portrait) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    color: var(--color-0);
+    text-align: center;
+    overflow: hidden;
+  }
 
-/* Mobile portrait */
-@media (max-width: 600px) and (orientation: portrait) {
-  :root {
-    --screen-padding: 3vw;
-    --station-list-width: 90%;
-    --canvas-size: 70%;
-    --footer-height: 6%;
-    --font-size: 3vw;
+  .screen {
+    display: none; /* hide actual UI in portrait */
+  }
+
+  body::before {
+    content: "Please rotate your device to landscape for Pip-Boy UI";
+    font-size: 5vw;
+    line-height: 1.5;
+    color: var(--color-0);
   }
 }
 
-/* Mobile landscape */
-@media (max-width: 600px) and (orientation: landscape) {
-  :root {
-    --screen-padding: 2vw;
-    --station-list-width: 35%;
-    --canvas-size: 55%;
-    --footer-height: 6%;
-    --font-size: 2.5vw;
+/* === Mobile landscape tweaks === */
+@media (max-width: 768px) and (orientation: landscape) {
+  .screen {
+    width: 95vw;
+    height: auto;
+    font-size: 3vw;
+    padding: 2%;
   }
 }
