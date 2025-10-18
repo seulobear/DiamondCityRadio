@@ -8,7 +8,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   font-family: Consolas, monospace;
-  background: black; /* Black behind Pip-Boy */
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,84 +22,80 @@ html, body {
   --color-300: #005500;
   --color-bg: #212121;
 
-  width: 100%;
+  width: 95%;
   max-width: 960px;
+  height: 85%;
   background: var(--color-bg);
   color: var(--color-0);
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 2%;
+  padding: 1.5%;
   font-size: calc(14px + 1vw);
 }
 
-.screen nav {
+/* Top green bar */
+.top-bar {
   display: flex;
   justify-content: space-between;
+  background-color: var(--color-0);
+  padding: 0.5em;
   font-weight: bold;
   text-transform: uppercase;
-  margin-bottom: 1%;
+  color: var(--color-bg);
 }
 
-.screen nav span {
-  color: var(--color-200);
-  padding: 0 1%;
+.top-bar .active {
+  color: var(--color-bg);
 }
 
-.screen nav .active {
-  color: var(--color-0);
-}
-
+/* Radio content: list + waveform */
 .radio-content {
   display: flex;
+  flex: 1;
   gap: 2%;
-  flex: 1;
+  margin-top: 1%;
 }
 
-.screen .station-list {
-  flex: 1;
+.station-list {
+  flex: 0 0 55%; /* slightly smaller to make waveform square */
   list-style: none;
-  font-size: 1em;
+  overflow-y: auto;
 }
 
-.screen .station-list li {
+.station-list li {
   cursor: pointer;
   padding: 0.5em;
 }
 
-.screen .station-list li:hover {
+.station-list li:hover {
   background-color: var(--color-0);
   color: var(--color-bg);
 }
 
-.screen .station-list li[aria-disabled] {
+.station-list li[aria-disabled] {
   pointer-events: none;
   color: var(--color-200);
 }
 
-.screen #wave-canvas {
-  width: 200px;
+#wave-canvas {
+  flex: 0 0 40%; /* square area */
   aspect-ratio: 1;
   border-right: 2px solid var(--color-300);
   border-bottom: 2px solid var(--color-300);
   image-rendering: pixelated;
 }
 
-.screen footer {
-  height: 5%;
-  background: var(--color-300);
-  margin-top: 1%;
-}
-
-.screen .volume-control {
+/* Volume slider above footer */
+.volume-control {
   display: flex;
   align-items: center;
   gap: 0.5em;
   justify-content: center;
-  margin-top: 1%;
+  margin-top: 0.5em;
 }
 
-.screen .volume-control input[type=range] {
+.volume-control input[type=range] {
   -webkit-appearance: none;
   width: 50%;
   height: 6px;
@@ -108,7 +104,7 @@ html, body {
   border-radius: 3px;
 }
 
-.screen .volume-control input[type=range]::-webkit-slider-thumb {
+.volume-control input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
@@ -118,7 +114,7 @@ html, body {
   box-shadow: 0 0 4px var(--color-0);
 }
 
-.screen .volume-control input[type=range]::-moz-range-thumb {
+.volume-control input[type=range]::-moz-range-thumb {
   width: 14px;
   height: 14px;
   background: var(--color-0);
@@ -127,7 +123,7 @@ html, body {
   box-shadow: 0 0 4px var(--color-0);
 }
 
-.screen .volume-control button {
+.volume-control button {
   background: var(--color-bg);
   color: var(--color-0);
   border: 1px solid var(--color-0);
@@ -137,11 +133,16 @@ html, body {
   box-shadow: 0 0 4px var(--color-0);
 }
 
-.screen .volume-control button:hover {
+.volume-control button:hover {
   background: var(--color-300);
 }
 
-/* Hide audio element */
+footer {
+  height: 4%;
+  background: var(--color-300);
+  margin-top: 0.5em;
+}
+
 audio {
   display: none;
 }
