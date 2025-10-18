@@ -24,7 +24,7 @@ body {
   top: 50%;
   left: 50%;
   flex-direction: column;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(var(--scale));
   background: var(--color-bg);
   padding: 32px;
   aspect-ratio: 4 / 3;
@@ -32,6 +32,23 @@ body {
   color: var(--color-0);
   font-size: 24px;
 }
+
+/* Scale calculation based on smaller viewport dimension */
+:root {
+  --scale: 1;
+}
+
+@media (min-width: 0px) {
+  :root {
+    --scale: calc(
+      min(
+        100vw / 544px,  /* original width including padding */
+        100vh / 480px   /* original height */
+      )
+    );
+  }
+}
+
 
 .screen nav {
   display: flex;
